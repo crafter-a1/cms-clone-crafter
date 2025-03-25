@@ -1,0 +1,27 @@
+
+.otp-input-container {
+  margin-bottom: 1.5rem;
+}
+
+.otp-inputs {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.otp-inputs .p-inputtext {
+  width: 40px;
+  height: 48px;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.otp-timer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: #666;
+}
