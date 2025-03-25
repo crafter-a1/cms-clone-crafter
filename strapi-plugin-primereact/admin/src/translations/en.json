@@ -1,0 +1,17 @@
+
+{
+  "plugin.name": "PrimeReact",
+  "fields.text.label": "PrimeReact Text",
+  "fields.text.description": "Enhanced text input with PrimeReact",
+  "fields.multiselect.label": "PrimeReact MultiSelect",
+  "fields.multiselect.description": "Enhanced MultiSelect with PrimeReact",
+  "fields.taginput.label": "PrimeReact Tag Input",
+  "fields.taginput.description": "Tag input field with PrimeReact",
+  "fields.calendar.label": "PrimeReact Calendar",
+  "fields.calendar.description": "Date/time picker with PrimeReact",
+  "fields.richtext.label": "PrimeReact Rich Text",
+  "fields.richtext.description": "Rich text editor with PrimeReact",
+  "validation.required": "This field is required",
+  "validation.minLength": "This field must be at least {min} characters",
+  "validation.maxLength": "This field must be at most {max} characters"
+}
