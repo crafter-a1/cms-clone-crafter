@@ -1,11 +1,11 @@
 
 {
   "name": "strapi-plugin-primereact",
-  "version": "1.0.0",
-  "description": "PrimeReact UI components for Strapi",
+  "version": "0.0.0",
+  "description": "PrimeReact components for Strapi",
   "strapi": {
     "name": "primereact",
-    "description": "PrimeReact UI components for Strapi",
+    "description": "PrimeReact components for Strapi",
     "kind": "plugin"
   },
   "dependencies": {
@@ -13,7 +13,11 @@
     "primeicons": "^6.0.0"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.0.0"
+    "@strapi/strapi": "^4.0.0",
+    "@strapi/design-system": "^1.6.3",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "styled-components": "^5.3.3"
   },
   "author": {
     "name": "Your Name",
