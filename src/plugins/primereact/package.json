@@ -1,0 +1,38 @@
+
+{
+  "name": "strapi-plugin-primereact",
+  "version": "0.0.1",
+  "description": "PrimeReact UI components for Strapi admin panel",
+  "strapi": {
+    "name": "primereact",
+    "description": "PrimeReact UI components for Strapi admin panel",
+    "kind": "plugin",
+    "displayName": "PrimeReact"
+  },
+  "dependencies": {
+    "primereact": "^9.0.0",
+    "primeicons": "^6.0.1",
+    "primeflex": "^3.3.0"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "styled-components": "^5.0.0"
+  },
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "maintainers": [
+    {
+      "name": "Your Name",
+      "email": "your.email@example.com"
+    }
+  ],
+  "engines": {
+    "node": ">=14.x.x <=18.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}

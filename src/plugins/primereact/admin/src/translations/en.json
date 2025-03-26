@@ -1,0 +1,10 @@
+
+{
+  "primereact.plugin.name": "PrimeReact",
+  "primereact.textinput.label": "PrimeReact Text",
+  "primereact.textinput.description": "Enhanced text input with PrimeReact",
+  "primereact.multiselect.label": "PrimeReact MultiSelect",
+  "primereact.multiselect.description": "Enhanced multiselect with PrimeReact",
+  "primereact.button.label": "PrimeReact Button",
+  "primereact.button.description": "Enhanced button with PrimeReact"
+}
