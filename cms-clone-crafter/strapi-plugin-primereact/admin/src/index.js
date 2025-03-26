@@ -1,53 +1,67 @@
 
 import pluginPkg from '../../package.json';
-import DropdownIcon from './components/DropdownIcon';
 import TextField from './components/TextField';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.min.css';
 
 const name = pluginPkg.strapi.name;
 
 export default {
   register(app) {
     app.customFields.register({
-      name: "dropdown",
-      pluginId: "primereact",
-      type: "string",
+      name: 'primereact-dropdown',
+      pluginId: name,
+      type: 'string',
       intlLabel: {
-        id: "primereact.dropdown.label",
-        defaultMessage: "Dropdown (PrimeReact)",
+        id: 'primereact-dropdown.dropdown.label',
+        defaultMessage: 'PrimeReact Dropdown',
       },
       intlDescription: {
-        id: "primereact.dropdown.description",
-        defaultMessage: "Select a value from a list",
+        id: 'primereact-dropdown.dropdown.description',
+        defaultMessage: 'Select from dropdown options',
       },
-      icon: DropdownIcon,
+      icon: 'caret-down',
       components: {
         Input: TextField,
       },
       options: {
         base: [
           {
-            name: "options",
-            type: "array",
+            name: 'options',
+            type: 'array',
+            defaultValue: [
+              { label: 'Option 1', value: 'option1' },
+              { label: 'Option 2', value: 'option2' },
+            ],
             items: {
-              type: "object",
+              type: 'object',
               keys: [
                 {
-                  name: "label",
-                  type: "string",
+                  name: 'label',
+                  type: 'string',
+                  required: true,
                 },
                 {
-                  name: "value",
-                  type: "string",
+                  name: 'value',
+                  type: 'string',
+                  required: true,
                 },
               ],
             },
-            required: true,
           },
         ],
-        advanced: [],
+        advanced: [
+          {
+            name: 'required',
+            type: 'boolean',
+            defaultValue: false,
+          },
+        ],
       },
     });
   },
-
-  bootstrap(app) {},
+  
+  bootstrap(app) {
+    // Bootstrap phase
+  },
 };

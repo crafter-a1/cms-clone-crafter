@@ -1,40 +1,39 @@
 
 # Strapi PrimeReact Plugin
 
-This plugin provides custom fields for Strapi using PrimeReact UI components.
+This plugin integrates PrimeReact components into your Strapi application, starting with a custom dropdown field.
 
-## Available Custom Fields
+## Installation
 
-- **Dropdown**: Select a value from a list of options
-- **Toggle**: On/Off toggle switch
-- **Slider**: Drag to select a numeric value
-- **Checkbox**: Standard checkbox selection
-- **JSON Editor**: Edit JSON data with formatting
-- **Rich Text Editor**: Feature-rich text editor
-
-## Usage
-
-1. Install the plugin:
 ```bash
-cd /path/to/your/strapi-project
-npm install /path/to/strapi-plugin-primereact
+npm install strapi-plugin-primereact
+# or
+yarn add strapi-plugin-primereact
 ```
 
-2. Enable the plugin in your `config/plugins.js` file:
+## Configuration
+
+Add the plugin to your `config/plugins.js` file:
+
 ```js
 module.exports = {
   // ...
-  primereact: {
+  'primereact': {
     enabled: true,
+    resolve: './src/plugins/strapi-plugin-primereact'
   },
   // ...
 }
 ```
 
-3. Restart your Strapi server
+## Usage
 
-4. When creating a new Content-Type or editing an existing one, you'll now see the PrimeReact custom fields available in the field type dropdown.
+After installing the plugin, you'll have access to the following custom fields:
 
-## Configuration
+- **PrimeReact Dropdown**: A dropdown select field using PrimeReact's Dropdown component.
 
-Some fields support additional configuration through the "Advanced Settings" tab when adding or editing a field.
+You can use these custom fields when creating new content types or editing existing ones through the Content-Type Builder.
+
+## License
+
+MIT

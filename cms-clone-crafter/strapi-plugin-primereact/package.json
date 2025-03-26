@@ -2,25 +2,24 @@
 {
   "name": "strapi-plugin-primereact",
   "version": "0.0.1",
-  "description": "PrimeReact components for Strapi",
+  "description": "Strapi plugin for PrimeReact components",
   "strapi": {
     "name": "primereact",
     "description": "PrimeReact components for Strapi",
     "kind": "plugin"
   },
   "dependencies": {
-    "primereact": "^9.0.0",
-    "primeicons": "^6.0.0"
+    "primereact": "^9.6.0",
+    "styled-components": "^5.3.11"
   },
   "peerDependencies": {
     "@strapi/design-system": "^1.6.3",
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/strapi": "^4.6.0",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2 || ^18.0.0",
-    "react-dom": "^17.0.2 || ^18.0.0",
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
     "react-intl": "^6.4.1",
-    "styled-components": "^5.3.6"
+    "prop-types": "^15.8.1"
   },
   "author": {
     "name": "A Strapi developer"
@@ -33,6 +32,10 @@
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
+  },
+  "scripts": {
+    "build": "strapi plugin:build",
+    "start": "strapi develop"
   },
   "license": "MIT"
 }

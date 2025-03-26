@@ -4,119 +4,138 @@ import { Typography } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'primereact/dropdown';
+import styled from 'styled-components';
+import DropdownIcon from '../DropdownIcon';
 
-const TextField = ({
+const StyledDropdown = styled(Dropdown)`
+  width: 100%;
+  height: 2.5rem;
+  border: 1px solid #dcdce4;
+  border-radius: 4px;
+  background-color: #ffffff;
+  outline: none;
+  
+  &:focus {
+    border-color: #4945ff;
+    box-shadow: 0 0 0 2px rgba(73, 69, 255, 0.2);
+  }
+  
+  &.p-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+const TextFieldComponent = ({
+  attribute,
   description,
+  disabled,
   error,
   intlLabel,
+  labelAction,
   name,
   onChange,
   options,
-  placeholder,
   required,
   value,
 }) => {
   const { formatMessage } = useIntl();
-  const displayName = intlLabel.id
+  const label = intlLabel.id
     ? formatMessage(
-      { id: intlLabel.id, defaultMessage: intlLabel.defaultMessage },
-      { ...intlLabel.values }
-    )
+        { id: intlLabel.id, defaultMessage: intlLabel.defaultMessage },
+        { ...intlLabel.values }
+      )
     : name;
 
   const hint = description
     ? formatMessage(
-      { id: description.id, defaultMessage: description.defaultMessage },
-      { ...description.values }
-    )
-    : '';
-
-  const errorMessage = error
-    ? formatMessage(
-      { id: error, defaultMessage: error },
+        { id: description.id, defaultMessage: description.defaultMessage },
+        { ...description.values }
       )
     : '';
 
-  const placeholder_txt = placeholder
-    ? formatMessage(
-      { id: placeholder.id, defaultMessage: placeholder.defaultMessage },
-      { ...placeholder.values }
-    )
-    : '';
+  const formattedOptions = options.map((option) => ({
+    label: option.label,
+    value: option.value,
+  }));
+
+  const handleChange = (e) => {
+    onChange({
+      target: {
+        name,
+        value: e.value,
+        type: attribute.type,
+      },
+    });
+  };
 
   return (
-    <div>
-      <label htmlFor={name}>
-        <Typography variant="pi" fontWeight="bold">
-          {displayName}
-          {required && <span style={{ color: 'red' }}>*</span>}
-        </Typography>
-      </label>
-      <div>
-        <Dropdown
-          id={name}
-          name={name}
-          value={value}
-          options={options}
-          onChange={(e) => {
-            onChange({ target: { name, value: e.value, type: 'select' } });
-          }}
-          placeholder={placeholder_txt}
-          optionValue="value"
-          optionLabel="label"
-        />
-      </div>
-      {hint && (
-        <Typography variant="pi" as="p">
+    <div style={{ marginBottom: '1rem' }}>
+      <Typography variant="pi" fontWeight="bold" textColor="neutral800">
+        {label} {required && <span style={{ color: 'red' }}>*</span>}
+      </Typography>
+      {description && (
+        <Typography variant="pi" textColor="neutral600">
           {hint}
         </Typography>
       )}
-      {errorMessage && (
-        <Typography variant="pi" as="p" color="danger600">
-          {errorMessage}
+      <div style={{ marginTop: '0.5rem' }}>
+        <StyledDropdown
+          name={name}
+          value={value}
+          options={formattedOptions}
+          onChange={handleChange}
+          disabled={disabled}
+          placeholder="Select an option"
+          dropdown
+          dropdownIcon={<DropdownIcon />}
+          className={error ? 'p-invalid' : ''}
+        />
+      </div>
+      {error && (
+        <Typography variant="pi" textColor="danger600">
+          {error}
         </Typography>
       )}
     </div>
   );
 };
 
-TextField.defaultProps = {
+TextFieldComponent.defaultProps = {
   description: null,
-  error: null,
-  intlLabel: {},
-  options: [],
-  placeholder: null,
+  disabled: false,
+  error: '',
+  labelAction: null,
   required: false,
   value: '',
+  options: [],
 };
 
-TextField.propTypes = {
+TextFieldComponent.propTypes = {
+  attribute: PropTypes.object.isRequired,
   description: PropTypes.shape({
     id: PropTypes.string.isRequired,
     defaultMessage: PropTypes.string.isRequired,
     values: PropTypes.object,
   }),
+  disabled: PropTypes.bool,
   error: PropTypes.string,
   intlLabel: PropTypes.shape({
     id: PropTypes.string.isRequired,
     defaultMessage: PropTypes.string.isRequired,
     values: PropTypes.object,
-  }),
+  }).isRequired,
+  labelAction: PropTypes.element,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      value: PropTypes.any.isRequired,
     })
   ),
-  placeholder: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    defaultMessage: PropTypes.string.isRequired,
-    values: PropTypes.object,
-  }),
   required: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.any,
 };
 
-export default TextField;
+export default TextFieldComponent;
