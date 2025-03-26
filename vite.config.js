@@ -7,13 +7,17 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@strapi/design-system': path.resolve(__dirname, 'node_modules/@strapi/design-system'),
+      '@strapi/helper-plugin': path.resolve(__dirname, 'node_modules/@strapi/helper-plugin'),
+      '@strapi/icons': path.resolve(__dirname, 'node_modules/@strapi/icons'),
+    },
+  },
+  build: {
+    commonjsOptions: {
+      include: [/node_modules/],
     },
   },
   server: {
-    port: 3000,
-  },
-  build: {
-    outDir: 'build',
-  },
+    port: 8080
+  }
 });

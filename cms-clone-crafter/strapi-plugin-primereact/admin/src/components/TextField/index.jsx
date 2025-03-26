@@ -2,78 +2,77 @@
 import React from 'react';
 import { Typography } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
-import { InputText } from 'primereact/inputtext';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: 0.5rem;
-`;
+import { Dropdown } from 'primereact/dropdown';
 
 const TextField = ({
   description,
-  disabled,
   error,
   intlLabel,
-  labelAction,
   name,
   onChange,
+  options,
   placeholder,
   required,
   value,
 }) => {
   const { formatMessage } = useIntl();
-  const label = intlLabel.id
+  const displayName = intlLabel.id
     ? formatMessage(
-        { id: intlLabel.id, defaultMessage: intlLabel.defaultMessage },
-        { ...intlLabel.values }
-      )
+      { id: intlLabel.id, defaultMessage: intlLabel.defaultMessage },
+      { ...intlLabel.values }
+    )
     : name;
 
   const hint = description
     ? formatMessage(
-        { id: description.id, defaultMessage: description.defaultMessage },
-        { ...description.values }
-      )
+      { id: description.id, defaultMessage: description.defaultMessage },
+      { ...description.values }
+    )
     : '';
 
   const errorMessage = error
-    ? formatMessage({ id: error, defaultMessage: error })
-    : null;
+    ? formatMessage(
+      { id: error, defaultMessage: error },
+      )
+    : '';
 
-  const handleChange = (e) => {
-    onChange({
-      target: {
-        name,
-        value: e.target.value,
-      },
-    });
-  };
+  const placeholder_txt = placeholder
+    ? formatMessage(
+      { id: placeholder.id, defaultMessage: placeholder.defaultMessage },
+      { ...placeholder.values }
+    )
+    : '';
 
   return (
     <div>
-      <Label htmlFor={name}>
-        {label}
-        {required && '*'}
-      </Label>
-      <InputText
-        id={name}
-        name={name}
-        value={value || ''}
-        onChange={handleChange}
-        placeholder={placeholder}
-        disabled={disabled}
-        className={error ? 'p-invalid' : ''}
-        style={{ width: '100%' }}
-      />
+      <label htmlFor={name}>
+        <Typography variant="pi" fontWeight="bold">
+          {displayName}
+          {required && <span style={{ color: 'red' }}>*</span>}
+        </Typography>
+      </label>
+      <div>
+        <Dropdown
+          id={name}
+          name={name}
+          value={value}
+          options={options}
+          onChange={(e) => {
+            onChange({ target: { name, value: e.value, type: 'select' } });
+          }}
+          placeholder={placeholder_txt}
+          optionValue="value"
+          optionLabel="label"
+        />
+      </div>
       {hint && (
         <Typography variant="pi" as="p">
           {hint}
         </Typography>
       )}
-      {error && (
-        <Typography variant="pi" textColor="danger600" as="p">
+      {errorMessage && (
+        <Typography variant="pi" as="p" color="danger600">
           {errorMessage}
         </Typography>
       )}
@@ -83,10 +82,9 @@ const TextField = ({
 
 TextField.defaultProps = {
   description: null,
-  disabled: false,
   error: null,
   intlLabel: {},
-  labelAction: null,
+  options: [],
   placeholder: null,
   required: false,
   value: '',
@@ -94,21 +92,29 @@ TextField.defaultProps = {
 
 TextField.propTypes = {
   description: PropTypes.shape({
-    id: PropTypes.string,
-    defaultMessage: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    defaultMessage: PropTypes.string.isRequired,
     values: PropTypes.object,
   }),
-  disabled: PropTypes.bool,
   error: PropTypes.string,
   intlLabel: PropTypes.shape({
-    id: PropTypes.string,
-    defaultMessage: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    defaultMessage: PropTypes.string.isRequired,
     values: PropTypes.object,
   }),
-  labelAction: PropTypes.node,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    })
+  ),
+  placeholder: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    defaultMessage: PropTypes.string.isRequired,
+    values: PropTypes.object,
+  }),
   required: PropTypes.bool,
   value: PropTypes.string,
 };
