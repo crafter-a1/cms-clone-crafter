@@ -1,99 +1,117 @@
 
 import React from 'react';
-import { Typography } from '@strapi/design-system';
-import PropTypes from 'prop-types';
+import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-import styled from 'styled-components';
+import DropdownIcon from '../DropdownIcon';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
 
-const LabelTypography = styled(Typography)`
-  font-weight: 600;
-  color: #32324d;
-`;
-
-const Description = styled(Typography)`
-  color: #666687;
-`;
-
-const Error = styled(Typography)`
-  color: #d02b20;
-  padding-top: 4px;
-`;
-
-const InputContainer = styled.div`
-  margin-bottom: 1rem;
-`;
-
-const TextFieldInput = ({
-  description,
-  error,
-  intlLabel,
-  labelAction,
-  name,
+const TextField = ({
+  attribute,
   onChange,
-  required,
+  name,
   value,
+  intlLabel,
+  description,
   placeholder,
+  disabled,
+  error,
+  required
 }) => {
+  const fieldType = attribute?.type || 'string';
+  const fieldOptions = attribute?.options || [];
+  
+  // Properly format options for Dropdown if options exist
+  const dropdownOptions = Array.isArray(fieldOptions) 
+    ? fieldOptions.map(option => ({
+        label: option.label || option,
+        value: option.value || option
+      }))
+    : [];
+
+  // Handle change based on field type
   const handleChange = (e) => {
-    onChange({ target: { name, value: e.target.value } });
+    if (fieldType === 'select') {
+      onChange({ target: { name, value: e.value } });
+    } else {
+      onChange(e);
+    }
+  };
+
+  // Define placeholder text
+  const placeholderText = placeholder || intlLabel?.defaultMessage || name;
+
+  // Style for wrapping the component to match Strapi UI
+  const wrapperStyle = {
+    marginBottom: '16px',
+    maxWidth: '100%'
+  };
+  
+  // Label style to match Strapi's label styling
+  const labelStyle = {
+    display: 'block',
+    marginBottom: '8px',
+    fontWeight: 500,
+    fontSize: '0.75rem',
+    color: error ? '#d02b20' : '#32324d'
+  };
+  
+  // Description style
+  const descriptionStyle = {
+    fontSize: '0.75rem',
+    color: '#666687',
+    marginTop: '4px'
+  };
+  
+  // Error message style
+  const errorStyle = {
+    fontSize: '0.75rem',
+    color: '#d02b20',
+    marginTop: '4px'
   };
 
   return (
-    <InputContainer>
-      <LabelTypography variant="pi" fontWeight="bold" textColor="neutral800" as="label" htmlFor={name}>
-        {intlLabel.defaultMessage}
-        {required && <span style={{ color: '#d02b20' }}>&nbsp;*</span>}
-      </LabelTypography>
-      {labelAction && <span>{labelAction}</span>}
-      {description && (
-        <Description variant="pi" as="p">
-          {description.defaultMessage}
-        </Description>
+    <div style={wrapperStyle}>
+      {intlLabel && (
+        <label htmlFor={name} style={labelStyle}>
+          {intlLabel.defaultMessage}
+          {required && <span style={{ color: '#d02b20' }}> *</span>}
+        </label>
       )}
-      <div style={{ marginTop: '0.5rem' }}>
+      
+      {fieldType === 'select' ? (
+        <Dropdown
+          id={name}
+          name={name}
+          value={value}
+          options={dropdownOptions}
+          onChange={handleChange}
+          placeholder={placeholderText}
+          disabled={disabled}
+          required={required}
+          className={error ? 'p-invalid' : ''}
+          dropdownIcon={<DropdownIcon />}
+          style={{ width: '100%' }}
+        />
+      ) : (
         <InputText
           id={name}
           name={name}
           value={value || ''}
           onChange={handleChange}
-          placeholder={placeholder}
+          placeholder={placeholderText}
+          disabled={disabled}
+          required={required}
+          className={error ? 'p-invalid' : ''}
           style={{ width: '100%' }}
         />
-      </div>
-      {error && (
-        <Error variant="pi" as="p">
-          {error}
-        </Error>
       )}
-    </InputContainer>
+      
+      {description && <div style={descriptionStyle}>{description}</div>}
+      {error && <div style={errorStyle}>{error}</div>}
+    </div>
   );
 };
 
-TextFieldInput.defaultProps = {
-  description: null,
-  error: null,
-  labelAction: null,
-  required: false,
-  value: '',
-  placeholder: '',
-};
-
-TextFieldInput.propTypes = {
-  description: PropTypes.shape({
-    id: PropTypes.string,
-    defaultMessage: PropTypes.string,
-  }),
-  error: PropTypes.string,
-  intlLabel: PropTypes.shape({
-    id: PropTypes.string,
-    defaultMessage: PropTypes.string,
-  }).isRequired,
-  labelAction: PropTypes.element,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  required: PropTypes.bool,
-  value: PropTypes.string,
-  placeholder: PropTypes.string,
-};
-
-export default TextFieldInput;
+export default TextField;
