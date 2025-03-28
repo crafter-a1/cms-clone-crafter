@@ -1,115 +1,77 @@
 
 import React from 'react';
-import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
-import DropdownIcon from '../DropdownIcon';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import styled from 'styled-components';
+
+const StyledInputText = styled(InputText)`
+  width: 100%;
+  font-weight: 400;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  border: 1px solid #dcdce4;
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+
+  &:focus {
+    border-color: #4945ff;
+    box-shadow: 0 0 0 2px rgba(73, 69, 255, 0.2);
+  }
+
+  &:disabled {
+    background-color: #f6f6f9;
+    color: #666687;
+  }
+
+  &.p-invalid {
+    border-color: #d02b20;
+  }
+`;
 
 const TextField = ({
-  attribute,
-  onChange,
-  name,
-  value,
-  intlLabel,
   description,
-  placeholder,
-  disabled,
+  disabled = false,
   error,
-  required
+  intlLabel,
+  labelAction,
+  name,
+  onChange,
+  placeholder,
+  required = false,
+  value,
+  ...rest
 }) => {
-  const fieldType = attribute?.type || 'string';
-  const fieldOptions = attribute?.options || [];
-  
-  // Properly format options for Dropdown if options exist
-  const dropdownOptions = Array.isArray(fieldOptions) 
-    ? fieldOptions.map(option => ({
-        label: option.label || option,
-        value: option.value || option
-      }))
-    : [];
-
-  // Handle change based on field type
   const handleChange = (e) => {
-    if (fieldType === 'select') {
-      onChange({ target: { name, value: e.value } });
-    } else {
-      onChange(e);
-    }
-  };
-
-  // Define placeholder text
-  const placeholderText = placeholder || intlLabel?.defaultMessage || name;
-
-  // Style for wrapping the component to match Strapi UI
-  const wrapperStyle = {
-    marginBottom: '16px',
-    maxWidth: '100%'
-  };
-  
-  // Label style to match Strapi's label styling
-  const labelStyle = {
-    display: 'block',
-    marginBottom: '8px',
-    fontWeight: 500,
-    fontSize: '0.75rem',
-    color: error ? '#d02b20' : '#32324d'
-  };
-  
-  // Description style
-  const descriptionStyle = {
-    fontSize: '0.75rem',
-    color: '#666687',
-    marginTop: '4px'
-  };
-  
-  // Error message style
-  const errorStyle = {
-    fontSize: '0.75rem',
-    color: '#d02b20',
-    marginTop: '4px'
+    onChange({
+      target: {
+        name,
+        value: e.target.value,
+      },
+    });
   };
 
   return (
-    <div style={wrapperStyle}>
+    <div className="field">
       {intlLabel && (
-        <label htmlFor={name} style={labelStyle}>
+        <label htmlFor={name} className={error ? 'p-error' : ''}>
           {intlLabel.defaultMessage}
-          {required && <span style={{ color: '#d02b20' }}> *</span>}
+          {required && <span className="required">*</span>}
+          {labelAction && <span>{labelAction}</span>}
         </label>
       )}
-      
-      {fieldType === 'select' ? (
-        <Dropdown
-          id={name}
-          name={name}
-          value={value}
-          options={dropdownOptions}
-          onChange={handleChange}
-          placeholder={placeholderText}
-          disabled={disabled}
-          required={required}
-          className={error ? 'p-invalid' : ''}
-          dropdownIcon={<DropdownIcon />}
-          style={{ width: '100%' }}
-        />
-      ) : (
-        <InputText
-          id={name}
-          name={name}
-          value={value || ''}
-          onChange={handleChange}
-          placeholder={placeholderText}
-          disabled={disabled}
-          required={required}
-          className={error ? 'p-invalid' : ''}
-          style={{ width: '100%' }}
-        />
-      )}
-      
-      {description && <div style={descriptionStyle}>{description}</div>}
-      {error && <div style={errorStyle}>{error}</div>}
+      <StyledInputText
+        id={name}
+        name={name}
+        value={value || ''}
+        onChange={handleChange}
+        disabled={disabled}
+        placeholder={placeholder}
+        className={error ? 'p-invalid' : ''}
+        {...rest}
+      />
+      {error && <small className="p-error">{error}</small>}
+      {description && <small className="description">{description.defaultMessage}</small>}
     </div>
   );
 };

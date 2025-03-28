@@ -1,47 +1,47 @@
 
-# Strapi PrimeReact Plugin
+# Strapi Plugin PrimeReact
 
-This plugin integrates PrimeReact components into Strapi, providing enhanced UI components for your content types.
+A Strapi plugin that integrates PrimeReact UI components into the Strapi admin panel.
 
 ## Installation
 
 ```bash
-# Install the plugin in your Strapi project
-cd /path/to/your/strapi/project
-npm install strapi-plugin-primereact
+# Using npm
+npm install strapi-plugin-primereact --save
 
-# Install required dependencies
-npm install primereact primeicons react-transition-group --legacy-peer-deps
+# Using yarn
+yarn add strapi-plugin-primereact
 ```
+
+### Enable the plugin
+
+Edit your `config/plugins.js` file:
+
+```js
+module.exports = {
+  // ...
+  'primereact': {
+    enabled: true,
+    resolve: './node_modules/strapi-plugin-primereact'
+  },
+  // ...
+}
+```
+
+## Requirements
+
+- Strapi v4.x
+- Node.js v14 or higher
 
 ## Usage
 
-After installing the plugin, you can use PrimeReact components in your content types:
+After installation, PrimeReact components will be available in your Strapi admin panel for use in custom fields.
 
-1. Go to Content-Type Builder
-2. Add a new custom field
-3. Choose "PrimeReact Field" or "PrimeReact Dropdown" from the list
-4. Configure the field as needed
+## Components
 
-## Features
+Currently available components:
 
-- Text input with PrimeReact styling
-- Dropdown select with PrimeReact styling
-- Integration with Strapi's field system
-
-## Development
-
-```bash
-# Clone the repository
-git clone https://github.com/your-repo/strapi-plugin-primereact.git
-
-# Install dependencies
-cd strapi-plugin-primereact
-npm install
-
-# Build the plugin
-npm run build
-```
+- TextField - Enhanced text input using PrimeReact's InputText
 
 ## License
 

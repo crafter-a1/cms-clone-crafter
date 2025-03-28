@@ -1,13 +1,12 @@
 
 {
   "name": "strapi-plugin-primereact",
-  "version": "1.0.0",
-  "description": "PrimeReact components for Strapi",
+  "version": "0.1.0",
+  "description": "PrimeReact components for Strapi CMS",
   "strapi": {
-    "name": "PrimeReact",
-    "description": "PrimeReact components for Strapi",
-    "kind": "plugin",
-    "displayName": "PrimeReact"
+    "name": "primereact",
+    "description": "PrimeReact components for Strapi CMS",
+    "kind": "plugin"
   },
   "dependencies": {
     "primereact": "^9.0.0",
@@ -20,24 +19,25 @@
     "react-dom": "^17.0.0 || ^18.0.0"
   },
   "author": {
-    "name": "Crafter Team",
-    "email": "info@example.com",
-    "url": "https://example.com"
+    "name": "Your Name",
+    "email": "your.email@example.com",
+    "url": "https://yourwebsite.com"
   },
   "maintainers": [
     {
-      "name": "Crafter Team",
-      "email": "info@example.com",
-      "url": "https://example.com"
+      "name": "Your Name",
+      "email": "your.email@example.com",
+      "url": "https://yourwebsite.com"
     }
   ],
   "engines": {
-    "node": ">=14.19.1 <=18.x.x",
+    "node": ">=14.x.x <=18.x.x",
     "npm": ">=6.0.0"
   },
   "scripts": {
     "develop": "tsc -w",
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
   },
   "license": "MIT"
 }

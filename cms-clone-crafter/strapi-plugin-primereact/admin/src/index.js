@@ -1,64 +1,34 @@
 
 import pluginPkg from '../../package.json';
 import TextField from './components/TextField';
-import pluginId from './pluginId';
+import DropdownIcon from './components/DropdownIcon';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 const name = pluginPkg.strapi.name;
 
 export default {
   register(app) {
-    // Register the plugin
-    app.registerPlugin({
-      id: pluginId,
-      name,
-    });
-
-    // Register custom field
     app.customFields.register({
-      name: 'primereact-field',
+      name: 'primereact-text',
       pluginId: 'primereact',
       type: 'string',
       intlLabel: {
-        id: 'primereact.form.label',
-        defaultMessage: 'PrimeReact Field',
+        id: 'primereact.text.label',
+        defaultMessage: 'PrimeReact Text',
       },
       intlDescription: {
-        id: 'primereact.form.description',
-        defaultMessage: 'A field using PrimeReact components',
+        id: 'primereact.text.description',
+        defaultMessage: 'Enhanced text input using PrimeReact',
       },
+      icon: DropdownIcon,
       components: {
         Input: TextField,
       },
     });
+  },
 
-    // Register dropdown field
-    app.customFields.register({
-      name: 'primereact-dropdown',
-      pluginId: 'primereact',
-      type: 'select',
-      intlLabel: {
-        id: 'primereact.dropdown.label',
-        defaultMessage: 'PrimeReact Dropdown',
-      },
-      intlDescription: {
-        id: 'primereact.dropdown.description',
-        defaultMessage: 'A dropdown field using PrimeReact components',
-      },
-      components: {
-        Input: TextField,
-      },
-      options: {
-        base: [
-          {
-            name: 'options',
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-            required: true,
-          },
-        ],
-      },
-    });
+  bootstrap(app) {
+    // Add custom bootstrap code here
   },
 };

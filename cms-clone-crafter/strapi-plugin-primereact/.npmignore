@@ -1,24 +1,45 @@
 
-# dependencies
-node_modules
-.pnp
-.pnp.js
+# Source code
+src/
 
-# testing
-coverage
+# Development files
+.git/
+.github/
+.gitignore
+.eslintrc
+.eslintignore
+.prettierrc
+.editorconfig
+.vscode/
+.idea/
 
-# build
-dist
-build
-.strapi-updater.json
+# Build process files
+tsconfig.json
+rollup.config.js
+babel.config.js
+webpack.config.js
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Test files
+__tests__/
+tests/
+jest.config.js
+coverage/
 
+# Dependency directories
+node_modules/
+bower_components/
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
