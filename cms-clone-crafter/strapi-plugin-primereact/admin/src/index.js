@@ -1,8 +1,7 @@
 
 import pluginPkg from '../../package.json';
-import TextField from './components/TextField';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';
-import 'primereact/resources/primereact.min.css';
+import DropdownIcon from './components/DropdownIcon';
+import TextFieldInput from './components/TextField';
 
 const name = pluginPkg.strapi.name;
 
@@ -10,58 +9,60 @@ export default {
   register(app) {
     app.customFields.register({
       name: 'primereact-dropdown',
-      pluginId: name,
+      pluginId: 'strapi-plugin-primereact',
       type: 'string',
       intlLabel: {
-        id: 'primereact-dropdown.dropdown.label',
+        id: 'primereact.dropdown.label',
         defaultMessage: 'PrimeReact Dropdown',
       },
       intlDescription: {
-        id: 'primereact-dropdown.dropdown.description',
-        defaultMessage: 'Select from dropdown options',
+        id: 'primereact.dropdown.description',
+        defaultMessage: 'Select a value from PrimeReact dropdown',
       },
-      icon: 'caret-down',
       components: {
-        Input: TextField,
+        Input: DropdownIcon,
       },
       options: {
         base: [
           {
-            name: 'options',
-            type: 'array',
-            defaultValue: [
-              { label: 'Option 1', value: 'option1' },
-              { label: 'Option 2', value: 'option2' },
-            ],
-            items: {
-              type: 'object',
-              keys: [
-                {
-                  name: 'label',
-                  type: 'string',
-                  required: true,
-                },
-                {
-                  name: 'value',
-                  type: 'string',
-                  required: true,
-                },
-              ],
+            sectionTitle: {
+              id: 'global.settings',
+              defaultMessage: 'Settings',
             },
-          },
-        ],
-        advanced: [
-          {
-            name: 'required',
-            type: 'boolean',
-            defaultValue: false,
+            items: [
+              {
+                name: 'options',
+                type: 'textarea',
+                intlLabel: {
+                  id: 'primereact.options.label',
+                  defaultMessage: 'Options (JSON array)',
+                },
+                description: {
+                  id: 'primereact.options.description',
+                  defaultMessage: 'Enter options as JSON array: [{"label": "Label1", "value": "value1"}, ...]',
+                },
+              },
+            ],
           },
         ],
       },
     });
-  },
-  
-  bootstrap(app) {
-    // Bootstrap phase
+
+    app.customFields.register({
+      name: 'primereact-input',
+      pluginId: 'strapi-plugin-primereact',
+      type: 'string',
+      intlLabel: {
+        id: 'primereact.textinput.label',
+        defaultMessage: 'PrimeReact Text Input',
+      },
+      intlDescription: {
+        id: 'primereact.textinput.description',
+        defaultMessage: 'Enter text using PrimeReact input',
+      },
+      components: {
+        Input: TextFieldInput,
+      },
+    });
   },
 };

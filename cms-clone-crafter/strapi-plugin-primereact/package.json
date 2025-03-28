@@ -1,41 +1,41 @@
 
 {
   "name": "strapi-plugin-primereact",
-  "version": "0.0.1",
-  "description": "Strapi plugin for PrimeReact components",
+  "version": "1.0.0",
+  "description": "PrimeReact components for Strapi",
   "strapi": {
-    "name": "primereact",
+    "name": "strapi-plugin-primereact",
     "description": "PrimeReact components for Strapi",
     "kind": "plugin"
   },
   "dependencies": {
-    "primereact": "^9.6.0",
-    "styled-components": "^5.3.11"
+    "primereact": "^9.0.0"
   },
   "peerDependencies": {
-    "@strapi/design-system": "^1.6.3",
+    "@strapi/design-system": "^1.6.0",
     "@strapi/helper-plugin": "^4.6.0",
-    "@strapi/strapi": "^4.6.0",
+    "@strapi/strapi": "^4.0.0",
     "react": "^17.0.0 || ^18.0.0",
     "react-dom": "^17.0.0 || ^18.0.0",
-    "react-intl": "^6.4.1",
-    "prop-types": "^15.8.1"
+    "styled-components": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=14.x.x <=18.x.x",
+    "npm": ">=6.0.0"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Your Name",
+    "email": "your.email@example.com"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Your Name",
+      "email": "your.email@example.com"
     }
   ],
-  "engines": {
-    "node": ">=14.19.1 <=18.x.x",
-    "npm": ">=6.0.0"
-  },
   "scripts": {
-    "build": "strapi plugin:build",
-    "start": "strapi develop"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "strapi plugin:build"
   },
   "license": "MIT"
 }
